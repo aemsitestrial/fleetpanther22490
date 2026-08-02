@@ -195,7 +195,7 @@ button {
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  text-transform:uppercase;
+  text-transform: uppercase;
   background-color: var(--primary-color);
   color: var(--dark-color);
   border-radius: 0;
