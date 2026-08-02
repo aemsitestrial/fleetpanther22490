@@ -22,9 +22,8 @@
   --link-hover-color: black;
 
   /* fonts */
-  --heading-font: 'Roboto', sans-serif;
-  --body-font: 'Open Sans', sans-serif;
-  --base-font-size: 16px;
+  --body-font-family: 'Source Sans Pro', roboto-fallback, sans-serif;
+  --heading-font-family: 'Asar', roboto-condensed-fallback, sans-serif;
 
   /* body sizes */
   --body-font-size-m: 22px;
