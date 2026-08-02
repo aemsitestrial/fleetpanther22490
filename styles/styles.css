@@ -22,8 +22,8 @@
   --link-hover-color: black;
 
   /* fonts */
-  --body-font-family: 'Source Sans Pro', roboto-fallback, sans-serif;
-  --heading-font-family: 'Asar', roboto-condensed-fallback, sans-serif;
+  --body-font-family: 'Source Sans Pro', source-sans-pro-normal-400-fallback, sans-serif;
+  --heading-font-family: 'Asar', asar-normal-400-fallback, sans-serif;
 
   /* body sizes */
   --body-font-size-m: 22px;
@@ -54,6 +54,19 @@
   size-adjust: 99.529%;
   src: local('Arial');
 }
+
+@font-face {
+    font-family: asar-normal-400-fallback;
+    size-adjust: 95.7%;
+    src: local('Arial');
+}
+
+@font-face {
+    font-family: source-sans-pro-normal-400-fallback;
+    size-adjust: 92.9%;
+    src: local('Arial');
+
+
 
 @media (width >= 900px) {
   :root {
