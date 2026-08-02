@@ -12,10 +12,10 @@
 
 :root {
   /* colors */
-  --primary-color: rgb(255, 234, 3);
-  --secondary-color: rgb(32, 32, 32);
+  --primary-color: rgb(255 234 3);
+  --secondary-color: rgb(32 32 32);
   --background-color: white;
-  --light-color: rgb(235, 235, 235);
+  --light-color: rgb(235 235 235);
   --dark-color: var(--secondary-color);
   --text-color: var(--secondary-color);
   --link-color: var(--text-color);
@@ -56,16 +56,16 @@
 }
 
 @font-face {
-    font-family: asar-normal-400-fallback;
+    font-family: "asar-normal-400-fallback";
     size-adjust: 95.7%;
-    src: local('Arial');
+    src: local("Arial");
 }
 
 @font-face {
-    font-family: source-sans-pro-normal-400-fallback;
+    font-family: "source-sans-pro-normal-400-fallback";
     size-adjust: 92.9%;
-    src: local('Arial');
-
+    src: local("Arial");
+}
 
 
 @media (width >= 900px) {
@@ -129,13 +129,15 @@ h6 {
 
 h1 { font-size: var(--heading-font-size-xxl); }
 h2 { font-size: var(--heading-font-size-xl); }
-h2: :after {
+
+h2::after {
     border-bottom: 2px solid var(--primary-color);
     content: "";
     display: block;
     padding-top: 8px;
     width: 84px;
 }
+
 h3 { font-size: var(--heading-font-size-l); }
 h4 { font-size: var(--heading-font-size-m); }
 h5 { font-size: var(--heading-font-size-s); }
@@ -206,7 +208,6 @@ button {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-
   text-transform: uppercase;
   background-color: var(--primary-color);
   color: var(--dark-color);
