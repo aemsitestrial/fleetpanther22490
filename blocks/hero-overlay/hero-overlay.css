@@ -1,0 +1,156 @@
+/* hero-overlay — closing hero: rounded image card with bottom gradient overlay
+   and bottom-left white text, framed by a black section.
+   Values extracted from https://wknd-trendsetters.site/ computed styles. */
+
+/* Section frame: black background with vertical padding (source: inverse-section) */
+main .section.hero-overlay-container {
+  background-color: var(--dark-color);
+  margin: 0;
+  padding: 64px 0;
+}
+
+/* Wrapper keeps global max-width (1200px) + horizontal padding.
+   Match source container gutter (24px) instead of the default desktop 32px. */
+main .section.hero-overlay-container > .hero-overlay-wrapper {
+  padding: 0 24px;
+}
+
+/* Block = the rounded image card */
+.hero-overlay {
+  position: relative;
+  display: flex;
+  align-items: flex-end;      /* text card-body sits at the bottom */
+  min-height: 448px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* Dark gradient overlay (bottom → transparent at 60%) */
+.hero-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: linear-gradient(to top, rgb(0 0 0 / 70%) 0%, rgb(0 0 0 / 0%) 60%);
+  pointer-events: none;
+}
+
+/* Heading */
+.hero-overlay h2 {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-xl);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: rgb(255 255 255);
+}
+
+/* Body copy */
+.hero-overlay p {
+  margin: 16px 0 0;
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-m);
+  line-height: 1.6;
+  color: rgb(255 255 255);
+}
+
+/* CTA container */
+.hero-overlay p.button-container {
+  margin: 32px 0 0;
+}
+
+/* Row 2 = text card-body, above the overlay */
+.hero-overlay > div:last-child {
+  position: relative;
+  z-index: 2;
+  max-width: 672px;
+  margin: 0;
+  padding: 64px;
+  color: rgb(255 255 255);
+}
+
+.hero-overlay > div:last-child > div {
+  margin: 0;
+}
+
+/* Row 1 = image, promoted to a full-bleed background layer */
+/* stylelint-disable-next-line no-descending-specificity */
+.hero-overlay > div:first-child {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  margin: 0;
+}
+
+.hero-overlay > div:first-child > div,
+.hero-overlay > div:first-child p {
+  height: 100%;
+  margin: 0;
+}
+
+.hero-overlay > div:first-child picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-overlay > div:first-child img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* CTA button: white pill, black label */
+main .hero-overlay a.button:any-link {
+  display: inline-block;
+  margin: 0;
+  padding: 12px 24px;
+  border: 2px solid rgb(255 255 255);
+  border-radius: 9999px;
+  background-color: rgb(255 255 255);
+  color: rgb(0 0 0);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs);
+  font-weight: 600;
+  line-height: 1.6;
+  text-transform: none;
+  text-decoration: none;
+}
+
+main .hero-overlay a.button:any-link:hover,
+main .hero-overlay a.button:any-link:focus {
+  background-color: transparent;
+  color: rgb(255 255 255);
+}
+
+/* Fallback when no background image is authored */
+.hero-overlay.no-image {
+  background-color: var(--light-color);
+}
+
+.hero-overlay.no-image::after {
+  display: none;
+}
+
+/* stylelint-disable no-descending-specificity */
+.hero-overlay.no-image > div:last-child,
+.hero-overlay.no-image h2,
+.hero-overlay.no-image p {
+  color: var(--text-color);
+}
+/* stylelint-enable no-descending-specificity */
+
+main .hero-overlay.no-image a.button:any-link {
+  border-color: var(--dark-color);
+  background-color: var(--dark-color);
+  color: rgb(255 255 255);
+}
+
+@media (width >= 900px) {
+  main .section.hero-overlay-container {
+    padding: 80px 0;
+  }
+}
