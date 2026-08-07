@@ -46,16 +46,14 @@ var CustomImportScript = (() => {
     const heading = element.querySelector('h1, h2, .h1-heading, [class*="heading"]');
     const subheading = element.querySelector('p, .subheading, [class*="subheading"]');
     const ctas = Array.from(element.querySelectorAll(".button-group a, a.button"));
-    const images = Array.from(element.querySelectorAll("img.cover-image, img"));
-    if (!heading && !subheading && images.length === 0) {
+    const image = element.querySelector("img.cover-image, img");
+    if (!heading && !subheading && !image) {
       element.replaceWith(...element.childNodes);
       return;
     }
     const cells = [];
-    if (images.length) {
-      const imageCell = [document.createComment(" field:image ")];
-      images.forEach((img) => imageCell.push(img));
-      cells.push([imageCell]);
+    if (image) {
+      cells.push([[document.createComment(" field:image "), image]]);
     }
     const textCell = [document.createComment(" field:text ")];
     if (heading) textCell.push(heading);
@@ -114,17 +112,19 @@ var CustomImportScript = (() => {
     }
     const cells = [];
     panes.forEach((pane, i) => {
-      let labelCell;
+      let label;
       const menu = menuLinks[i];
       if (menu) {
         const nameBlock = menu.querySelector(".flex-horizontal > div:not(.avatar), div:not(.avatar) > div") ? menu.querySelector(".flex-horizontal > div:not(.avatar)") : null;
-        labelCell = nameBlock || menu;
+        label = nameBlock || menu;
       } else {
         const name = pane.querySelector(".paragraph-xl strong, strong");
-        labelCell = name ? name.closest("div") || name : `Tab ${i + 1}`;
+        label = name ? name.closest("div") || name : null;
       }
       const contentInner = pane.querySelector(".grid-layout") || pane;
-      cells.push([labelCell, contentInner]);
+      const labelCell = label ? [document.createComment(" field:label "), label] : [document.createComment(" field:label "), `Tab ${i + 1}`];
+      const contentCell = contentInner ? [document.createComment(" field:content "), contentInner] : "";
+      cells.push([labelCell, contentCell]);
     });
     const block = WebImporter.Blocks.createBlock(document, { name: "tabs-testimonial", cells });
     element.replaceWith(block);
@@ -179,10 +179,11 @@ var CustomImportScript = (() => {
     items.forEach((item) => {
       const summary = item.querySelector("summary");
       const questionSpan = summary ? summary.querySelector("span") : null;
-      const questionCell = questionSpan || summary || "";
+      const question = questionSpan || summary;
       const answer = item.querySelector(".faq-answer") || item.querySelector("details > div:not(summary)");
-      const answerCell = answer || "";
-      cells.push([questionCell, answerCell]);
+      const summaryCell = question ? [document.createComment(" field:summary "), question] : "";
+      const textCell = answer ? [document.createComment(" field:text "), answer] : "";
+      cells.push([summaryCell, textCell]);
     });
     const block = WebImporter.Blocks.createBlock(document, { name: "accordion-faq", cells });
     element.replaceWith(block);

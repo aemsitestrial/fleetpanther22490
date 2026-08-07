@@ -13,22 +13,23 @@ export default function parse(element, { document }) {
   const heading = element.querySelector('h1, h2, .h1-heading, [class*="heading"]');
   const subheading = element.querySelector('p, .subheading, [class*="subheading"]');
   const ctas = Array.from(element.querySelectorAll('.button-group a, a.button'));
-  // All cover images (second grid child holds the 3 stacked images).
-  const images = Array.from(element.querySelectorAll('img.cover-image, img'));
+  // The hero model defines `image` as a single reference (multi: false), so only
+  // ONE image maps into the field:image cell. The source intro shows a 3-image
+  // stack, but the existing hero block cannot preserve that (accepted tradeoff);
+  // pushing multiple images breaks md2jcr model mapping. Use the first image only.
+  const image = element.querySelector('img.cover-image, img');
 
   // Empty-block guard
-  if (!heading && !subheading && images.length === 0) {
+  if (!heading && !subheading && !image) {
     element.replaceWith(...element.childNodes);
     return;
   }
 
   const cells = [];
 
-  // Row 2: image cell (field:image) — keeps all source images together.
-  if (images.length) {
-    const imageCell = [document.createComment(' field:image ')];
-    images.forEach((img) => imageCell.push(img));
-    cells.push([imageCell]);
+  // Row 2: image cell (field:image) — single image to match the model reference.
+  if (image) {
+    cells.push([[document.createComment(' field:image '), image]]);
   }
 
   // Row 3: text cell (field:text) — heading + subheading + CTAs as richtext.
