@@ -1,0 +1,57 @@
+/* cards-gallery — image-only gallery grid
+   Values extracted from https://wknd-trendsetters.site/ (Style in every snapshot).
+   Source: 4-col grid, 12px gap, 1:1 square cells, 20px radius, img object-fit cover. */
+
+.cards-gallery > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr; /* mobile: 1 column */
+  gap: 12px;
+}
+
+/* tablet: 2 columns (source @ ~800px viewport) */
+@media (width >= 600px) {
+  .cards-gallery > ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* desktop: 4 columns (source @ 1280px viewport) */
+@media (width >= 900px) {
+  .cards-gallery > ul {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.cards-gallery > ul > li {
+  aspect-ratio: 1 / 1;      /* square cells */
+  border-radius: 20px;      /* rounded corners */
+  overflow: hidden;
+  background-color: transparent;
+  border: none;
+}
+
+/* image-only gallery: no captions — hide any empty body cell */
+.cards-gallery .cards-gallery-card-body {
+  display: none;
+}
+
+/* stretch the full image-cell chain (div > p > picture > img) to fill the
+   square li; EDS wraps bare images in a <p>, so every level needs height 100% */
+.cards-gallery .cards-gallery-card-image,
+.cards-gallery .cards-gallery-card-image p,
+.cards-gallery .cards-gallery-card-image picture {
+  display: block;
+  height: 100%;
+  margin: 0;
+  line-height: 0;
+}
+
+.cards-gallery > ul > li img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* fills square, crops overflow */
+  display: block;
+}

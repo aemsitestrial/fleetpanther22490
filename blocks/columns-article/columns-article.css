@@ -1,0 +1,67 @@
+/* columns-article — featured-article layout
+   Values extracted from source computed styles (wknd-trendsetters.site). */
+
+/* Row: mobile-first — stacked single column */
+.columns-article > div {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: center;
+}
+
+/* Image column */
+.columns-article > div > .columns-article-img-col {
+  order: 0;
+}
+
+.columns-article img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+/* Text column */
+.columns-article > div > div {
+  order: 1;
+}
+
+.columns-article h2 {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-weight: 700;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+/* Author / meta lines */
+.columns-article > div > div p {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs);
+  line-height: 1.4;
+  color: var(--text-color);
+}
+
+.columns-article > div > div p:first-of-type {
+  margin-top: 16px;
+}
+
+/* date + read-time line — secondary tone */
+.columns-article > div > div p:last-of-type {
+  margin-top: 8px;
+  color: var(--secondary-color);
+}
+
+/* Desktop: image left, text right */
+@media (width >= 900px) {
+  .columns-article > div {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .columns-article > div > div {
+    order: unset;
+  }
+}
