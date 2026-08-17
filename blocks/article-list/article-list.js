@@ -1,0 +1,4 @@
+// blocks/article-list/article-list.js  
+
+const AEM_PUBLISH = 'http://localhost:4503';
+const QUERY_URL   = `${AEM_PUBLISH}/graphql/execute.json/article/article-list`;  export default async function decorate(block) {   const response = await fetch(QUERY_URL, {     method: 'GET',     headers: { 'Content-Type': 'application/json' },   });    if (!response.ok) return;   const { data } = await response.json();   const articles  = data?.articleList?.items ?? [];    block.innerHTML = '';   articles.forEach(({ title, publishDate, body }) => {     const card = document.createElement('div');     card.className = 'article-card';     card.innerHTML = `       <h3>${title}</h3>       <p class="date">${new Date(publishDate).toLocaleDateString()}</p>       <p>${body?.plaintext ?? ''}</p>     `;     block.append(card);   }); } 
